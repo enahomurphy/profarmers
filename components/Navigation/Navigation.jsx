@@ -1,9 +1,43 @@
 import React, { useState } from 'react';
-import { Menu, Icon } from 'antd';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
+import styled from 'styled-components';
+import {
+  Menu, Row, Col,
+} from 'antd';
 
-const { SubMenu } = Menu;
+import Logo from 'components/Icons/Logo';
+import ProfileNavigation from './Profile';
 
-const Navigation = () => {
+const HeaderContainer = styled(Row)`
+  background: #ffffff;
+  height: 70px;
+  margin: 0 40px;
+
+  @media only screen and (max-width: 576px) {
+    margin: 0 0 0 0px;
+    height: 95px;
+  }
+`;
+
+const NavigationMenu = styled(Menu)`
+  border-bottom: none;
+  width: 280px;
+`;
+
+const LogoContainer = styled(Col)`
+  @media only screen and (max-width: 576px) {
+    margin: 10px 20px;
+  }
+`;
+
+const ProfileNavigationContainer = styled(Row)`
+  @media only screen and (max-width: 576px) {
+    margin-right: 20px;
+  }
+`;
+
+const Navigation = ({ menu }) => {
   const [current, setCurrent] = useState('mail');
 
   const handleClick = (e) => {
@@ -11,39 +45,53 @@ const Navigation = () => {
   };
 
   return (
-    <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-      <Menu.Item key="mail">
-        <Icon type="mail" />
-        Navigation One
-      </Menu.Item>
-      <Menu.Item key="app" disabled>
-        <Icon type="appstore" />
-        Navigation Two
-      </Menu.Item>
-      <SubMenu
-        title={(
-          <span className="submenu-title-wrapper">
-            <Icon type="setting" />
-            Navigation Three - Submenu
-          </span>
-        )}
-      >
-        <Menu.ItemGroup title="Item 1">
-          <Menu.Item key="setting:1">Option 1</Menu.Item>
-          <Menu.Item key="setting:2">Option 2</Menu.Item>
-        </Menu.ItemGroup>
-        <Menu.ItemGroup title="Item 2">
-          <Menu.Item key="setting:3">Option 3</Menu.Item>
-          <Menu.Item key="setting:4">Option 4</Menu.Item>
-        </Menu.ItemGroup>
-      </SubMenu>
-      <Menu.Item key="alipay">
-        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-          Navigation Four - Link
-        </a>
-      </Menu.Item>
-    </Menu>
+    <HeaderContainer type="flex" align="middle" justify="space-around">
+      <LogoContainer xs={{ span: 22 }} lg={6} md={6} sm={6} align="start">
+        <Logo />
+      </LogoContainer>
+      <Col xs={24} md={18} lg={18}>
+        <ProfileNavigationContainer type="flex" align="middle" justify="space-around">
+          <Col span={12}>
+            <NavigationMenu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+              {
+                menu.map(({ name, url }) => (
+                  <Menu.Item key={name}>
+                    <Link href={url}>
+                      <span>{name}</span>
+                    </Link>
+                  </Menu.Item>
+                ))
+              }
+            </NavigationMenu>
+          </Col>
+          <Col xs={12} sm={12} lg={12}>
+            <ProfileNavigation />
+          </Col>
+        </ProfileNavigationContainer>
+      </Col>
+    </HeaderContainer>
   );
+};
+
+Navigation.propTypes = {
+  menu: PropTypes.array,
+};
+
+Navigation.defaultProps = {
+  menu: [
+    {
+      name: 'feed',
+      url: '/feed',
+    },
+    {
+      name: 'community',
+      url: '/community',
+    },
+    {
+      name: 'forum',
+      url: '/forum',
+    },
+  ],
 };
 
 export default Navigation;

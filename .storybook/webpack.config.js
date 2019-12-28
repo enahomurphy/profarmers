@@ -36,5 +36,8 @@ module.exports = ({ config, mode }) => {
     },
   );
 
+  config.resolve.alias.components = path.resolve(__dirname, '../components')
+  config.resolve.alias.globals = path.resolve(__dirname, '../global')
+
   return config;
 };

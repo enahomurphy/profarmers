@@ -1,7 +1,9 @@
-{
+module.exports = {
   "extends": [
     "react-app",
-    "airbnb",
+    "airbnb"
+  ],
+  "plugins": [
     "react-hooks"
   ],
   "rules": {
@@ -35,6 +37,18 @@
     "jsx-a11y/label-has-for": false,
     "react/forbid-prop-types": false,
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/anchor-is-valid": "off",
+  },
+  "settings": {
+    "import/resolver": {
+      alias: {
+        map: [
+          ['components', './components'],
+          ['globals', './global']
+        ],
+        "extensions": ['.js', '.jsx', '.ts', '.tsx'],
+      }
+    }
   }
 }

@@ -38,6 +38,7 @@ module.exports = ({ config, mode }) => {
 
   config.resolve.alias.components = path.resolve(__dirname, '../components')
   config.resolve.alias.globals = path.resolve(__dirname, '../global')
+  config.resolve.alias.lib = path.resolve(__dirname, '../lib')
 
   return config;
 };

@@ -43,7 +43,7 @@ const CountColumn = styled(Col)`
 const StackedAvatar = ({
   avatars, avatarWidth, stagedPadding, count, width,
 }) => (
-  <Row style={{ height: `${avatarWidth}px`, maxWidth: width }} type="flex" justify="center">
+  <Row style={{ height: `${avatarWidth}px`, maxWidth: width, width }} type="flex" justify="center">
     <StackedAvatarContainer span={16}>
       {
         avatars.map(({ src, alt }, index) => (
@@ -62,7 +62,12 @@ const StackedAvatar = ({
     </StackedAvatarContainer>
     <CountColumn span={8}>
       <Typography>
-        <Typography.Text>{`+${formatNumber(count)}`}</Typography.Text>
+        <Typography.Text
+          strong
+          type="secondary"
+        >
+          {`+${formatNumber(count)}`}
+        </Typography.Text>
       </Typography>
     </CountColumn>
   </Row>

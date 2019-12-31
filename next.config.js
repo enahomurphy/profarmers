@@ -35,6 +35,12 @@ module.exports = withLess({
         use: 'null-loader',
       })
     }
+
+    config.resolve.alias.components = path.resolve('components')
+    config.resolve.alias.globals = path.resolve('global')
+    config.resolve.alias.lib = path.resolve('lib')
+    config.resolve.alias.modules = path.resolve('modules')
+    
     return config
   },
 })

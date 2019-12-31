@@ -46,7 +46,8 @@ module.exports = {
         map: [
           ['components', './components'],
           ['globals', './global'],
-          ['lib', './lib']
+          ['lib', './lib'],
+          ['modules', './modules']
         ],
         "extensions": ['.js', '.jsx', '.ts', '.tsx'],
       }

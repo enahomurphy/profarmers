@@ -4,6 +4,7 @@ import { useForm, Controller } from 'react-hook-form';
 import {
   Form, Input, Button, Typography,
 } from 'antd';
+import { useRouter } from 'next/router';
 
 import authGGL from 'lib/graphql/auth';
 import WithLabel from 'components/Form/WithLabels';
@@ -12,29 +13,34 @@ import getFormErrors from 'lib/errors/getFormErrors';
 import get from 'lib/utils/get';
 
 const SignupForm = () => {
-  const [signup] = useMutation(authGGL.query.LOGIN);
+  const [signup] = useMutation(authGGL.query.SIGNUP);
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const {
     handleSubmit, control, errors, setError,
   } = useForm();
   const onSubmit = async (values) => {
     try {
-      await signup({ variables: values });
+      setLoading(true);
+      const { data } = await signup({ variables: values });
+      localStorage.setItem('jwt', data.signup.token);
+      router.push('/signup/complete');
     } catch (error) {
-      const loginError = getErrorByPath(error.graphQLErrors, 'login');
+      const loginError = getErrorByPath(error.graphQLErrors, 'signup');
       if (loginError.message) {
         setErrorMessage(loginError.message);
       }
 
-      const formErrors = getFormErrors(error.graphQLErrors, 'login');
+      const formErrors = getFormErrors(error.graphQLErrors, 'signup');
       if (formErrors.length) {
         setError(formErrors);
       }
+    } finally {
+      setLoading(false);
     }
   };
-
-  console.info(errors);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="login-form">
@@ -69,7 +75,7 @@ const SignupForm = () => {
       </WithLabel>
       <Typography.Paragraph style={{ textAlign: 'center' }}>
         <Typography.Text>
-          By clicking Agree & Join, you agree to the LinkedIn User Agreement,
+          By registering , you agree to the Profamers User Agreement,
           Privacy Policy, and Cookie Policy.
         </Typography.Text>
       </Typography.Paragraph>
@@ -78,6 +84,7 @@ const SignupForm = () => {
         type="primary"
         htmlType="submit"
         className="login-form-button"
+        loading={loading}
       >
         Register
       </Button>

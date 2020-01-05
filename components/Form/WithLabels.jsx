@@ -46,7 +46,7 @@ WithLabels.defaultProps = {
 WithLabels.propTypes = {
   label: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
-  errors: PropTypes.oneOf([PropTypes.string, PropTypes.array]),
+  errors: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 };
 
 export default WithLabels;

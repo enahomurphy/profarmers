@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import styled from 'styled-components';
-import {
-  Menu, Row, Col,
-} from 'antd';
+import { Row, Col } from 'antd';
 
 import Logo from 'components/Icons/Logo';
-import ProfileNavigation from './Profile';
+import RightNav from './RightNav';
 
 const HeaderContainer = styled(Row)`
   background: #ffffff;
@@ -20,61 +17,24 @@ const HeaderContainer = styled(Row)`
   }
 `;
 
-const NavigationMenu = styled(Menu)`
-  border-bottom: none;
-  width: 280px;
-`;
-
 const LogoContainer = styled(Col)`
   @media only screen and (max-width: 576px) {
     margin: 10px 20px;
   }
 `;
 
-const ProfileNavigationContainer = styled(Row)`
-  @media only screen and (max-width: 576px) {
-    margin-right: 20px;
-  }
-`;
-
-const Navigation = ({ menu }) => {
-  const [current, setCurrent] = useState('mail');
-
-  const handleClick = (e) => {
-    setCurrent(e.key);
-  };
-
-  return (
-    <HeaderContainer type="flex" align="middle" justify="space-around">
-      <LogoContainer xs={{ span: 22 }} lg={6} md={6} sm={6} align="start">
-        <Logo />
-      </LogoContainer>
-      <Col xs={24} md={18} lg={18}>
-        <ProfileNavigationContainer type="flex" align="middle" justify="space-around">
-          <Col span={12}>
-            <NavigationMenu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-              {
-                menu.map(({ name, url }) => (
-                  <Menu.Item key={name}>
-                    <Link href={url}>
-                      <span>{name}</span>
-                    </Link>
-                  </Menu.Item>
-                ))
-              }
-            </NavigationMenu>
-          </Col>
-          <Col xs={12} sm={12} lg={12}>
-            <ProfileNavigation />
-          </Col>
-        </ProfileNavigationContainer>
-      </Col>
-    </HeaderContainer>
-  );
-};
+const Navigation = ({ menu, page }) => (
+  <HeaderContainer type="flex" align="middle" justify="space-around">
+    <LogoContainer xs={{ span: 22 }} lg={6} md={6} sm={6} align="start">
+      <Logo />
+    </LogoContainer>
+    <RightNav menu={menu} page={page} />
+  </HeaderContainer>
+);
 
 Navigation.propTypes = {
   menu: PropTypes.array,
+  page: PropTypes.string.isRequired,
 };
 
 Navigation.defaultProps = {

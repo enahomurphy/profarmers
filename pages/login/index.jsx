@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Signup from 'modules/Auth/Signup';
+import Login from 'modules/Auth/Login';
 import Layout from 'components/Layout';
 import withApollo from 'lib/apollo';
 
 const SignupPage = () => (
-  <Layout title="sign up" page="signup">
-    <Signup />
+  <Layout title="sign in" page="login">
+    <Login />
   </Layout>
 );
 

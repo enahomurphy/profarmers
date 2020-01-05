@@ -1,40 +1,71 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import { useForm, Controller } from 'react-hook-form';
 import {
   Form, Input, Button, Typography,
 } from 'antd';
 
+import authGGL from 'lib/graphql/auth';
 import WithLabel from 'components/Form/WithLabels';
+import getErrorByPath from 'lib/errors/getErrorByPath';
+import getFormErrors from 'lib/errors/getFormErrors';
+import get from 'lib/utils/get';
 
-const SignupForm = ({ form }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        console.info('Received values of form: ', values);
+const SignupForm = () => {
+  const [signup] = useMutation(authGGL.query.LOGIN);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const {
+    handleSubmit, control, errors, setError,
+  } = useForm();
+  const onSubmit = async (values) => {
+    try {
+      await signup({ variables: values });
+    } catch (error) {
+      const loginError = getErrorByPath(error.graphQLErrors, 'login');
+      if (loginError.message) {
+        setErrorMessage(loginError.message);
       }
-    });
+
+      const formErrors = getFormErrors(error.graphQLErrors, 'login');
+      if (formErrors.length) {
+        setError(formErrors);
+      }
+    }
   };
 
-  const { getFieldDecorator } = form;
+  console.info(errors);
 
   return (
-    <Form onSubmit={handleSubmit} className="login-form">
-      <WithLabel label="email / phone number">
-        {getFieldDecorator('username', {
-          rules: [{ required: true, message: 'Please input your username!' }],
-        })(
-          <Input />,
-        )}
+    <Form onSubmit={handleSubmit(onSubmit)} className="login-form">
+      <Typography.Text style={{ textAlign: 'center', display: 'block' }} type="danger">
+        {errorMessage}
+      </Typography.Text>
+      <WithLabel errors={get(errors, 'email.message', '')} label="email / phone number">
+        <Controller
+          as={<Input />}
+          name="email"
+          type="email"
+          control={control}
+          rules={{
+            required: 'Please Enter a valid email',
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              message: 'invalid email address',
+            },
+          }}
+        />
       </WithLabel>
-      <WithLabel label="password">
-        {getFieldDecorator('password', {
-          rules: [{ required: true, message: 'Please input your Password!' }],
-        })(
-          <Input
-            type="password"
-          />,
-        )}
+      <WithLabel errors={get(errors, 'password.message', '')} label="password">
+        <Controller
+          as={<Input />}
+          name="password"
+          type="password"
+          control={control}
+          rules={{
+            required: 'Please Enter a valid password',
+          }}
+        />
       </WithLabel>
       <Typography.Paragraph style={{ textAlign: 'center' }}>
         <Typography.Text>
@@ -54,8 +85,4 @@ const SignupForm = ({ form }) => {
   );
 };
 
-SignupForm.propTypes = {
-  form: PropTypes.object.isRequired,
-};
-
-export default Form.create({ name: 'normal_login' })(SignupForm);
+export default SignupForm;

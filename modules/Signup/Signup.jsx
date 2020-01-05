@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { Typography } from 'antd';
+
 import SignupForm from './SignupForm';
 
 const FormWrapper = styled.div`
@@ -27,11 +27,11 @@ const SignupContainer = styled.div`
   }
 `;
 
-const Login = () => (
+const Signup = () => (
   <SignupContainer>
     <Typography>
       <Typography.Title style={{ textAlign: 'center', fontSize: '24px' }}>
-        Create Your Account
+          Create Your Account
       </Typography.Title>
     </Typography>
     <FormWrapper>
@@ -40,4 +40,4 @@ const Login = () => (
   </SignupContainer>
 );
 
-export default Login;
+export default Signup;

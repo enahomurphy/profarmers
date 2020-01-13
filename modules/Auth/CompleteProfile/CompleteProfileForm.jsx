@@ -8,9 +8,8 @@ import {
 import userGQL from 'lib/graphql/user';
 import get from 'lib/utils/get';
 import WithLabel from 'components/Form/WithLabels';
-import getFormErrors from 'lib/errors/getFormErrors';
+import getErrors from 'lib/errors';
 import AvatarUpload from './AvatarUpload';
-
 
 const CompleteProfileForm = () => {
   const [updateUser] = useMutation(userGQL.query.UPDATE_USER);
@@ -23,7 +22,7 @@ const CompleteProfileForm = () => {
     try {
       await updateUser({ variables: { payload: values } });
     } catch (error) {
-      const formErrors = getFormErrors(error.graphQLErrors, 'updateUser');
+      const formErrors = getErrors(error, 'updateUser');
       if (formErrors.length) {
         setError(formErrors);
       }

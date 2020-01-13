@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 import Login from 'modules/Auth/Login';
@@ -9,5 +10,8 @@ const SignupPage = () => (
     <Login />
   </Layout>
 );
+
+SignupPage.getInitialProps = async () => {
+};
 
 export default withApollo(SignupPage);

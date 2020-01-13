@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useForm, Controller } from 'react-hook-form';
-import { useRouter } from 'next/router';
 
 import {
   Form, Input, Button, Typography,
@@ -9,15 +8,14 @@ import {
 
 import authGGL from 'lib/graphql/auth';
 import WithLabel from 'components/Form/WithLabels';
-import getErrorByPath from 'lib/errors/getErrorByPath';
-import getFormErrors from 'lib/errors/getFormErrors';
+import getErrors from 'lib/errors';
 import get from 'lib/utils/get';
+import { login } from 'lib/auth';
 
 const SignupForm = () => {
   const [signup] = useMutation(authGGL.query.LOGIN);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const {
     handleSubmit, control, errors, setError,
@@ -26,15 +24,14 @@ const SignupForm = () => {
     try {
       setLoading(true);
       const { data } = await signup({ variables: values });
-      localStorage.setItem('jwt', data.login.token);
-      router.push('/');
+      login(data.login);
     } catch (error) {
-      const loginError = getErrorByPath(error.graphQLErrors, 'login');
-      if (loginError.message) {
-        setErrorMessage(loginError.message);
+      const { message, formErrors } = getErrors(error, 'login');
+
+      if (message) {
+        setErrorMessage(message);
       }
 
-      const formErrors = getFormErrors(error.graphQLErrors, 'login');
       if (formErrors.length) {
         setError(formErrors);
       }

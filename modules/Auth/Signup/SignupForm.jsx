@@ -23,7 +23,7 @@ const SignupForm = () => {
     try {
       setLoading(true);
       const { data } = await signup({ variables: values });
-      login(data.signup);
+      login(data.signup, '/signup/complete');
     } catch (error) {
       const { message, formErrors } = getErrors(error, 'signup');
 

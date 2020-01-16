@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useForm, Controller } from 'react-hook-form';
 import {
   Form, Input, Button, Select, Row, Col,
 } from 'antd';
+import { useRouter } from 'next/router';
 
 import userGQL from 'lib/graphql/user';
 import get from 'lib/utils/get';
@@ -13,19 +14,25 @@ import AvatarUpload from './AvatarUpload';
 
 const CompleteProfileForm = () => {
   const [updateUser] = useMutation(userGQL.query.UPDATE_USER);
+  const [loading, setLoading] = useState(false);
 
+  const route = useRouter();
   const {
     handleSubmit, control, errors, setError,
   } = useForm();
 
   const onSubmit = async (values) => {
     try {
+      setLoading(true);
       await updateUser({ variables: { payload: values } });
+      route.push('/');
     } catch (error) {
       const formErrors = getErrors(error, 'updateUser');
       if (formErrors.length) {
         setError(formErrors);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -135,6 +142,7 @@ const CompleteProfileForm = () => {
         type="primary"
         htmlType="submit"
         className="login-form-button"
+        loading={loading}
       >
         Complete Profile
       </Button>

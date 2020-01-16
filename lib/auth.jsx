@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
+import PropTypes from 'prop-types';
 
 export const login = ({ token }, path = '/') => {
   cookie.set('token', token, { expires: 1 });
@@ -25,7 +26,7 @@ export const auth = (ctx) => {
 export const logout = () => {
   cookie.remove('token');
   window.localStorage.setItem('logout', Date.now());
-  Router.push('/login');
+  window.location.href = '/login';
 };
 
 export const withAuthSync = (WrappedComponent) => {
@@ -55,6 +56,35 @@ export const withAuthSync = (WrappedComponent) => {
       && (await WrappedComponent.getInitialProps(ctx));
 
     return { ...componentProps, token };
+  };
+
+  return Wrapper;
+};
+
+export const withUnAuth = (WrappedComponent) => {
+  const Wrapper = ({ token, ...props }) => {
+    const router = useRouter();
+
+    useEffect(() => {
+      if (token) {
+        router.push('/');
+      }
+    }, [router, token]);
+
+    return !token && <WrappedComponent {...props} />;
+  };
+
+  Wrapper.getInitialProps = async (ctx) => {
+    const { token } = nextCookie(ctx);
+
+    const componentProps = WrappedComponent.getInitialProps
+      && (await WrappedComponent.getInitialProps(ctx));
+
+    return { ...componentProps, token };
+  };
+
+  Wrapper.propTypes = {
+    token: PropTypes.string.isRequired,
   };
 
   return Wrapper;

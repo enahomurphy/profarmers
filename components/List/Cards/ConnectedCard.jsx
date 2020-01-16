@@ -2,7 +2,7 @@ import React from 'react';
 import PropType from 'prop-types';
 import styled from 'styled-components';
 import {
-  Skeleton, Card, Avatar, Typography,
+  Skeleton, Card, Typography, Avatar,
 } from 'antd';
 
 import formatNumber from 'lib/utils/formatNumber';

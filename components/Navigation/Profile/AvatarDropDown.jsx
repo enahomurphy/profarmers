@@ -3,8 +3,9 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
-  Avatar, Badge, Dropdown, Icon, Menu,
+  Avatar, Badge, Icon, Menu,
 } from 'antd';
+import Dropdown from 'antd/lib/dropdown';
 
 const AvatarContainer = styled.div`
   display: flex;

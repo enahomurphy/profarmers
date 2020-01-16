@@ -1,17 +1,15 @@
 
 import React from 'react';
 
+import { withUnAuth } from 'lib/auth';
 import Login from 'modules/Auth/Login';
 import Layout from 'components/Layout';
 import withApollo from 'lib/apollo';
 
-const SignupPage = () => (
+const LoginPage = () => (
   <Layout title="sign in" page="login">
     <Login />
   </Layout>
 );
 
-SignupPage.getInitialProps = async () => {
-};
-
-export default withApollo(SignupPage);
+export default withApollo(withUnAuth(LoginPage));

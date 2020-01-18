@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropType from 'prop-types';
 import styled from 'styled-components';
@@ -67,10 +68,6 @@ TopicCard.propTypes = {
   user: PropType.object.isRequired,
   details: PropType.string.isRequired,
   title: PropType.string.isRequired,
-};
-
-TopicCard.propTypes = {
-
 };
 
 export default TopicCard;

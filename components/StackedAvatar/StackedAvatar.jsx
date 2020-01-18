@@ -9,17 +9,19 @@ import formatNumber from 'lib/utils/formatNumber';
 
 const StackedAvatarContainer = styled(Col)`
   position: relative;
-  max-width: 500px;
+  max-width: 200px;
 `;
 
 const StackedAvatarImages = styled(Avatar)`
-  width: ${props => props.width};
-  height: ${props => props.height};
-  position: absolute;
-  z-index: ${props => props.adjust};
-  left: ${(
+  &.ant-avatar  {
+    width: ${props => props.width};
+    height: ${props => props.height};
+    position: absolute;
+    z-index: ${props => props.adjust};
+    left: ${(
     { adjust, avatarWidth, stagedPadding },
   ) => `${adjust * ((avatarWidth / 2) + stagedPadding)}px`};
+  }
 
   i {
     display: flex;
@@ -43,7 +45,7 @@ const CountColumn = styled(Col)`
 const StackedAvatar = ({
   avatars, avatarWidth, stagedPadding, count, width,
 }) => (
-  <Row style={{ height: `${avatarWidth}px`, maxWidth: width, width }} type="flex" justify="center">
+  <Row style={{ height: `${avatarWidth}px`, maxWidth: width }} type="flex" justify="center">
     <StackedAvatarContainer span={16}>
       {
         avatars.map(({ src, alt }, index) => (
@@ -60,7 +62,7 @@ const StackedAvatar = ({
         ))
       }
     </StackedAvatarContainer>
-    <CountColumn span={8}>
+    <CountColumn style={{ display: 'flex' }} span={8}>
       <Typography>
         <Typography.Text
           strong
@@ -82,7 +84,7 @@ StackedAvatar.propTypes = {
 };
 
 StackedAvatar.defaultProps = {
-  avatarWidth: 50,
+  avatarWidth: 30,
   stagedPadding: 5,
   width: '250px',
 };

@@ -10,7 +10,6 @@ export default {
   title: 'List',
 };
 
-
 const previewListData = {
   loading: false,
   title: 'Growing cashew in the south',
@@ -23,11 +22,12 @@ const previewListData = {
     language for background applications, is refined by Ant UED Team.
   `,
   user: {
-    image: 'https://randomuser.me/api/portraits/men/47.jpg',
+    profileImage: 'https://randomuser.me/api/portraits/men/47.jpg',
     name: 'Racheal Ejutemidien',
     lastSeen: '3 hrs ago',
     personal: 'farmer',
   },
+  replyCount: 2000,
   replies: {
     totalCount: 2000,
     lastReplies: [
@@ -35,7 +35,7 @@ const previewListData = {
         title: '',
         reply: '',
         user: {
-          image: 'https://randomuser.me/api/portraits/men/47.jpg',
+          profileImage: 'https://randomuser.me/api/portraits/men/47.jpg',
           name: 'Enaho Murphy',
           lastSeen: '3 hrs ago',
           personal: 'farmer',
@@ -45,7 +45,7 @@ const previewListData = {
         title: '',
         reply: '',
         user: {
-          image: 'https://randomuser.me/api/portraits/men/48.jpg',
+          profileImage: 'https://randomuser.me/api/portraits/men/48.jpg',
           name: 'Enaho Murphy',
           lastSeen: '3 hrs ago',
         },
@@ -54,13 +54,31 @@ const previewListData = {
         title: '',
         reply: '',
         user: {
-          image: 'https://randomuser.me/api/portraits/men/49.jpg',
+          profileImage: 'https://randomuser.me/api/portraits/men/49.jpg',
           name: 'Enaho Murphy',
           lastSeen: '3 hrs ago',
         },
       },
     ],
   },
+  users: [
+    {
+      profileImage: 'https://randomuser.me/api/portraits/men/47.jpg',
+      name: 'Racheal Ejutemidien',
+      personal: 'farmer',
+    },
+    {
+      profileImage: 'https://randomuser.me/api/portraits/men/48.jpg',
+      name: 'Enaho Murphy',
+      lastSeen: '3 hrs ago',
+    },
+    {
+
+      profileImage: 'https://randomuser.me/api/portraits/men/49.jpg',
+      name: 'Enaho Murphy',
+      lastSeen: '3 hrs ago',
+    },
+  ],
 };
 
 export const previewList = () => (

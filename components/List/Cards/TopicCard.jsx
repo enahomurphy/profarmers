@@ -9,10 +9,18 @@ import {
 import color from 'globals/color';
 import formatNumber from 'lib/utils/formatNumber';
 
+const TopicCardWrapper = styled(Card)`
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.05);
+  border: 0px;
+
+  .ant-card-body {
+    max-height: 220px;
+  }
+`;
+
 const CardMeta = styled(Card.Meta)`
   display: flex;
   align-items: center;
-
   .ant-card-meta-title {
     font-size: 12px;
   }
@@ -39,10 +47,10 @@ const CardMeta = styled(Card.Meta)`
 `;
 
 const TopicCard = ({
-  loading, user, replies, details, title,
+  loading, user, replyCount, details, title,
 }) => (
   <Skeleton loading={loading} avatar active>
-    <Card
+    <TopicCardWrapper
       headStyle={{ background: color.primaryColor, color: 'white' }}
       hoverable
       title={title}
@@ -52,19 +60,19 @@ const TopicCard = ({
       </Typography.Paragraph>
       <CardMeta
         avatar={
-          <Avatar src={user.image} />
+          <Avatar src={user.profileImage} />
         }
-        title={user.name}
-        description={`${formatNumber(replies.totalCount)} replies`}
+        title={user.fullName}
+        description={`${formatNumber(replyCount)} replies`}
       />
-    </Card>
+    </TopicCardWrapper>
   </Skeleton>
 );
 
 
 TopicCard.propTypes = {
   loading: PropType.bool.isRequired,
-  replies: PropType.object.isRequired,
+  replyCount: PropType.number.isRequired,
   user: PropType.object.isRequired,
   details: PropType.string.isRequired,
   title: PropType.string.isRequired,

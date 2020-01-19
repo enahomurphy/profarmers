@@ -9,7 +9,9 @@ import formatNumber from 'lib/utils/formatNumber';
 
 const StackedAvatarContainer = styled(Col)`
   position: relative;
-  max-width: 200px;
+  width: 100%;
+  display: flex;
+  min-height: ${props => props.height};
 `;
 
 const StackedAvatarImages = styled(Avatar)`
@@ -45,8 +47,13 @@ const CountColumn = styled(Col)`
 const StackedAvatar = ({
   avatars, avatarWidth, stagedPadding, count, width,
 }) => (
-  <Row style={{ height: `${avatarWidth}px`, maxWidth: width }} type="flex" justify="center">
-    <StackedAvatarContainer span={16}>
+  <Row
+    style={{ height: `${avatarWidth}px`, maxWidth: width, width }
+  }
+    type="flex"
+    justify="end"
+  >
+    <StackedAvatarContainer height={avatarWidth} span={16}>
       {
         avatars.map(({ src, alt }, index) => (
           <StackedAvatarImages
@@ -62,7 +69,12 @@ const StackedAvatar = ({
         ))
       }
     </StackedAvatarContainer>
-    <CountColumn style={{ display: 'flex' }} span={8}>
+    <CountColumn
+      style={{
+        display: 'flex', justifyContent: 'flex-end', height: avatarWidth,
+      }}
+      span={8}
+    >
       <Typography>
         <Typography.Text
           strong

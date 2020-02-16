@@ -9,12 +9,31 @@ const handleFbData = (metadata) => {
   return data;
 };
 
-const loginUser = () => (data, metadata) => {
-  if (data.signedUp) {
+const handleGoogleData = ({ profileObj }) => {
+  const data = {
+    fullName: `${profileObj.givenName} ${profileObj.familyName}`,
+    profileImage: profileObj.imageUrl,
+  };
+
+  return data;
+};
+
+const loginUser = () => (data, metadata, type) => {
+  if (data.signedUp || type === 'login') {
     return login(data, '/feed');
   }
 
-  return login(data, '/signup/complete', handleFbData(metadata));
+  let query = {};
+
+  if (type === 'facebook') {
+    query = handleFbData(metadata);
+  }
+
+  if (type === 'google') {
+    query = handleGoogleData(metadata);
+  }
+
+  return login(data, '/signup/complete', query);
 };
 
 export default loginUser;

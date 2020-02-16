@@ -1,18 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import CompleteProfile from 'modules/Auth/CompleteProfile';
 import Layout from 'components/Layout';
 import withApollo from 'lib/apollo';
+import { useRouter } from 'next/router';
 
-const CompleteSignup = ({ url }) => (
-  <Layout title="Complete Profile" page="complete-profile">
-    <CompleteProfile {...url.query} />
-  </Layout>
-);
+const CompleteSignup = () => {
+  const { query } = useRouter();
 
-CompleteSignup.propTypes = {
-  url: PropTypes.object.isRequired,
+  return (
+    <Layout title="Complete Profile" page="complete-profile">
+      <CompleteProfile {...query} />
+    </Layout>
+  );
 };
 
 export default withApollo(CompleteSignup);

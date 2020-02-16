@@ -10,8 +10,7 @@ import authGGL from 'lib/graphql/auth';
 import WithLabel from 'components/Form/WithLabels';
 import getErrors from 'lib/errors';
 import get from 'lib/utils/get';
-import { login } from 'lib/auth';
-
+import useLoginUser from '../hooks/useLogin';
 import Social from '../Social';
 
 const SignupForm = () => {
@@ -21,16 +20,13 @@ const SignupForm = () => {
   const {
     handleSubmit, control, errors, setError,
   } = useForm();
-
-  const loginUser = (data) => {
-    login(data, '/signup/complete');
-  };
+  const loginUser = useLoginUser();
 
   const onSubmit = async (values) => {
     try {
       setLoading(true);
       const { data } = await signup({ variables: values });
-      login(data.login);
+      loginUser(data.login, null, 'login');
     } catch (error) {
       const { message, formErrors } = getErrors(error, 'login');
 

@@ -53,7 +53,7 @@ const SocialAuth = ({
           type,
         },
       });
-      onSuccess(data.socialSignup, payload);
+      onSuccess(data.socialSignup, payload, type);
     } catch (error) {
       onFailure(type);
     }

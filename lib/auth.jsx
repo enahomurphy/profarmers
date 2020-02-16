@@ -87,7 +87,7 @@ export const withUnAuth = (WrappedComponent) => {
   };
 
   Wrapper.propTypes = {
-    token: PropTypes.string.isRequired,
+    token: PropTypes.string,
   };
 
   return Wrapper;

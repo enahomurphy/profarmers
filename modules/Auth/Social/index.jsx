@@ -79,7 +79,7 @@ const SocialAuth = ({
           onFailure={() => onFailure('facebook')}
           callback={data => handleLogin(data, 'facebook')}
           render={renderProps => (
-            <SocialButtons hovercolor="blue" disabled={renderProps.disabled} onClick={renderProps.onClick}>
+            <SocialButtons hovercolor="#3b5998" disabled={renderProps.disabled} onClick={renderProps.onClick}>
               <SocialIcon color="blue" type="facebook" theme="filled" />
             </SocialButtons>
           )}
@@ -91,7 +91,7 @@ const SocialAuth = ({
           onFailure={() => onFailure('google')}
           cookiePolicy="single_host_origin"
           render={renderProps => (
-            <SocialButtons hovercolor="red" disabled={renderProps.disabled} onClick={renderProps.onClick}>
+            <SocialButtons hovercolor="#de5246" disabled={renderProps.disabled} onClick={renderProps.onClick}>
               <SocialIcon color="red" type="google-circle" theme="filled" />
             </SocialButtons>
           )}

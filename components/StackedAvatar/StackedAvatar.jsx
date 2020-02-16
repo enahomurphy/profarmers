@@ -45,7 +45,7 @@ const CountColumn = styled(Col)`
 `;
 
 const StackedAvatar = ({
-  avatars, avatarWidth, stagedPadding, count, width,
+  avatars, avatarWidth, stagedPadding, count, width, showCount,
 }) => (
   <Row
     style={{ height: `${avatarWidth}px`, maxWidth: width, width }
@@ -53,7 +53,7 @@ const StackedAvatar = ({
     type="flex"
     justify="end"
   >
-    <StackedAvatarContainer height={avatarWidth} span={16}>
+    <StackedAvatarContainer height={avatarWidth} span={showCount ? 16 : 24}>
       {
         avatars.map(({ src, alt }, index) => (
           <StackedAvatarImages
@@ -69,21 +69,25 @@ const StackedAvatar = ({
         ))
       }
     </StackedAvatarContainer>
-    <CountColumn
-      style={{
-        display: 'flex', justifyContent: 'flex-end', height: avatarWidth,
-      }}
-      span={8}
-    >
-      <Typography>
-        <Typography.Text
-          strong
-          type="secondary"
+    {
+      showCount && (
+        <CountColumn
+          style={{
+            display: 'flex', justifyContent: 'flex-end', height: avatarWidth,
+          }}
+          span={8}
         >
-          {`+${formatNumber(count)}`}
-        </Typography.Text>
-      </Typography>
-    </CountColumn>
+          <Typography>
+            <Typography.Text
+              strong
+              type="secondary"
+            >
+              {`+${formatNumber(count)}`}
+            </Typography.Text>
+          </Typography>
+        </CountColumn>
+      )
+    }
   </Row>
 );
 
@@ -93,12 +97,14 @@ StackedAvatar.propTypes = {
   stagedPadding: PropTypes.number,
   count: PropTypes.number.isRequired,
   width: PropTypes.string,
+  showCount: PropTypes.bool,
 };
 
 StackedAvatar.defaultProps = {
   avatarWidth: 30,
   stagedPadding: 5,
   width: '250px',
+  showCount: true,
 };
 
 export default StackedAvatar;

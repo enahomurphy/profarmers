@@ -2,6 +2,7 @@ import React from 'react';
 
 import PreviewList from './PreviewList';
 import ReplyList from './ReplyList';
+import ForumList from './ForumList';
 import TopicCardList from './Cards/TopicCard';
 import ConnectedCard from './Cards/ConnectedCard';
 import ConnectionCard from './Cards/ConnectionCard';
@@ -107,5 +108,36 @@ export const connectedCardList = () => (
 export const connectionCardList = () => (
   <div style={{ margin: '20px' }}>
     <ConnectionCard {...previewListData} />
+  </div>
+);
+
+
+const forumData = [
+  {
+    title: 'Growing cashew in the south',
+    topicsCount: 20,
+    users: [
+      {
+        profileImage: 'https://randomuser.me/api/portraits/men/47.jpg',
+        name: 'Racheal Ejutemidien',
+        personal: 'farmer',
+      },
+      {
+        profileImage: 'https://randomuser.me/api/portraits/men/48.jpg',
+        name: 'Enaho Murphy',
+        lastSeen: '3 hrs ago',
+      },
+      {
+        profileImage: 'https://randomuser.me/api/portraits/men/49.jpg',
+        name: 'Enaho Murphy',
+        lastSeen: '3 hrs ago',
+      },
+    ],
+  },
+];
+
+export const forumList = () => (
+  <div style={{ margin: '20px' }}>
+    <ForumList {...forumData[0]} />
   </div>
 );

@@ -1,5 +1,6 @@
 /* eslint-disable */
 const withLess = require('@zeit/next-less');
+const withCss = require('@zeit/next-css');
 const lessToJS = require('less-vars-to-js');
 const fs = require('fs');
 const path = require('path');
@@ -26,7 +27,7 @@ class FilterPlugin {
   }
 }
 
-module.exports = withLess({
+module.exports = withCss(withLess({
   lessLoaderOptions: {
     javascriptEnabled: true,
     modifyVars: themeVariables,
@@ -41,6 +42,7 @@ module.exports = withLess({
           { filter: /chunk styles \[mini-css-extract-plugin]\nConflicting order between:/ }
         )
       )
+
       config.externals = [
         (context, request, callback) => {
           if (request.match(antStyles)) return callback();
@@ -71,4 +73,4 @@ module.exports = withLess({
     FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
   },
-});
+}));

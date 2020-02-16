@@ -53,7 +53,6 @@ const RecentTopics = ({
   </RecentTopicsSection>
 );
 
-
 export default RecentTopics;
 
 RecentTopics.propTypes = {

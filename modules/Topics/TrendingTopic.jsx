@@ -45,19 +45,24 @@ const TrendingTopic = ({ topics, loading }) => {
       <Typography.Title style={{ fontSize: '20px', marginLeft: '50px' }}>
         Trending Topics
       </Typography.Title>
-      <SwiperWrapper {...params}>
-        {
-        topics.map(topic => (
-          <div key={topic.id}>
-            <TopicCard
-              {...topic}
-              details={topic.body}
-              loading={loading}
-            />
-          </div>
-        ))
+      {
+        topics.length && (
+          <SwiperWrapper {...params}>
+            {
+              topics.map(topic => (
+                <div key={topic.id}>
+                  <TopicCard
+                    {...topic}
+                    details={topic.body}
+                    loading={loading}
+                  />
+                </div>
+              ))
+            }
+          </SwiperWrapper>
+        )
       }
-      </SwiperWrapper>
+
     </TrendingTopicSection>
   );
 };

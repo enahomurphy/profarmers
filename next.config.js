@@ -1,10 +1,9 @@
 /* eslint-disable */
-const withLess = require('@zeit/next-less')
-const withCss = require('@zeit/next-css')
-const lessToJS = require('less-vars-to-js')
-const fs = require('fs')
-const path = require('path')
-
+const withLess = require('@zeit/next-less');
+const withCss = require('@zeit/next-css');
+const lessToJS = require('less-vars-to-js');
+const fs = require('fs');
+const path = require('path');
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
   fs.readFileSync(path.resolve(__dirname, './assets/antd-custom.less'), 'utf8')
@@ -44,6 +43,9 @@ module.exports = withCss(withLess({
     
     return config
   },
+  env: {
+    API_URL: process.env.API_URL,
+    FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID
+  }
 }))
-
-

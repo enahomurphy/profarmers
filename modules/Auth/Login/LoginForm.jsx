@@ -12,14 +12,20 @@ import getErrors from 'lib/errors';
 import get from 'lib/utils/get';
 import { login } from 'lib/auth';
 
+import Social from '../Social';
+
 const SignupForm = () => {
   const [signup] = useMutation(authGGL.query.LOGIN);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-
   const {
     handleSubmit, control, errors, setError,
   } = useForm();
+
+  const loginUser = (data) => {
+    login(data, '/signup/complete');
+  };
+
   const onSubmit = async (values) => {
     try {
       setLoading(true);
@@ -80,6 +86,12 @@ const SignupForm = () => {
       >
         Login
       </Button>
+      <Social
+        type="login"
+        dividerText="Or connect with"
+        onSuccess={loginUser}
+        onFailure={message => setErrorMessage(message)}
+      />
     </Form>
   );
 };

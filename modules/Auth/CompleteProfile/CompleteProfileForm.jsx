@@ -5,6 +5,7 @@ import {
   Form, Input, Button, Select, Row, Col,
 } from 'antd';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 
 import userGQL from 'lib/graphql/user';
 import get from 'lib/utils/get';
@@ -12,11 +13,12 @@ import WithLabel from 'components/Form/WithLabels';
 import getErrors from 'lib/errors';
 import AvatarUpload from './AvatarUpload';
 
-const CompleteProfileForm = () => {
+const CompleteProfileForm = ({ fullName, profileImage }) => {
   const [updateUser] = useMutation(userGQL.query.UPDATE_USER);
   const [loading, setLoading] = useState(false);
-
+  const [imageURL, setImageURL] = useState(profileImage);
   const route = useRouter();
+
   const {
     handleSubmit, control, errors, setError,
   } = useForm();
@@ -24,7 +26,7 @@ const CompleteProfileForm = () => {
   const onSubmit = async (values) => {
     try {
       setLoading(true);
-      await updateUser({ variables: { payload: values } });
+      await updateUser({ variables: { payload: { ...values, profileImage: imageURL } } });
       route.push('/');
     } catch (error) {
       const formErrors = getErrors(error, 'updateUser');
@@ -39,7 +41,7 @@ const CompleteProfileForm = () => {
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="login-form">
       <Row style={{ margin: '30px 0' }} type="flex" align="middle" justify="center">
-        <AvatarUpload />
+        <AvatarUpload onChange={setImageURL} defaultImage={imageURL} />
       </Row>
       <Row gutter={16}>
         <Col md={4} lg={4}>
@@ -47,7 +49,7 @@ const CompleteProfileForm = () => {
             <Controller
               as={(
                 <Select>
-                  <Select.Option value="mr">Mr.</Select.Option>
+                  <Select.Option value="mr">Mr</Select.Option>
                   <Select.Option value="mrs">Mrs.</Select.Option>
                   <Select.Option value="miss">Miss.</Select.Option>
                 </Select>
@@ -68,6 +70,7 @@ const CompleteProfileForm = () => {
               name="fullName"
               type="text"
               control={control}
+              defaultValue={fullName}
               rules={{
                 required: 'Please Enter a valid email',
                 pattern: {
@@ -148,6 +151,11 @@ const CompleteProfileForm = () => {
       </Button>
     </Form>
   );
+};
+
+CompleteProfileForm.propTypes = {
+  fullName: PropTypes.string.isRequired,
+  profileImage: PropTypes.string.isRequired,
 };
 
 export default CompleteProfileForm;

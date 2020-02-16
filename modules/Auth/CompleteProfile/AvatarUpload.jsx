@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 import { Upload, Icon, message } from 'antd';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const UploadContainer = styled(Upload)`
   background: ${({ image }) => (image ? `url(${image})` : '')};
@@ -40,9 +41,13 @@ function beforeUpload(file) {
   return isJpgOrPng && isLt2M;
 }
 
-const AvatarUpload = () => {
+const AvatarUpload = ({ defaultImage, onChange }) => {
   const [loading, setLoading] = useState(false);
-  const [imageURL, setImageURL] = useState('');
+  const [imageURL, setImageURL] = useState(defaultImage);
+
+  useEffect(() => {
+    setImageURL(defaultImage);
+  }, [defaultImage]);
 
   const handleChange = (info) => {
     if (info.file.status === 'uploading') {
@@ -53,6 +58,7 @@ const AvatarUpload = () => {
     if (info.file.status === 'done') {
       getBase64(info.file.originFileObj, (imageUrl) => {
         setImageURL(imageUrl);
+        onChange();
         setLoading(false);
       });
     }
@@ -80,15 +86,23 @@ const AvatarUpload = () => {
       listType="picture-card"
       className="avatar-uploader"
       showUploadList={false}
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
       beforeUpload={beforeUpload}
       onChange={handleChange}
       image={imageURL}
     >
-      {/* {imageURL ? '' : uploadButton} */}
       {UploadButton}
     </UploadContainer>
   );
+};
+
+AvatarUpload.defaultProps = {
+  onChange: () => {},
+  defaultImage: '',
+};
+
+AvatarUpload.propTypes = {
+  onChange: PropTypes.func,
+  defaultImage: PropTypes.string,
 };
 
 export default AvatarUpload;

@@ -1,29 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { useForm, Controller } from 'react-hook-form';
 import {
   Form, Input, Button, Typography,
 } from 'antd';
+import router from 'next/router';
 
 import authGGL from 'lib/graphql/auth';
 import WithLabel from 'components/Form/WithLabels';
 import getErrors from 'lib/errors';
 import get from 'lib/utils/get';
-import { login } from 'lib/auth';
+import useLoginUser from '../hooks/useLogin';
+
+import Social from '../Social';
 
 const SignupForm = () => {
   const [signup] = useMutation(authGGL.query.SIGNUP);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-
   const {
     handleSubmit, control, errors, setError,
   } = useForm();
+  const loginUser = useLoginUser();
+
+  useEffect(() => {
+    router.prefetch('/signup/complete');
+  }, []);
+
   const onSubmit = async (values) => {
     try {
       setLoading(true);
       const { data } = await signup({ variables: values });
-      login(data.signup, '/signup/complete');
+      loginUser(data.signup);
     } catch (error) {
       const { message, formErrors } = getErrors(error, 'signup');
 
@@ -85,6 +93,12 @@ const SignupForm = () => {
       >
         Register
       </Button>
+      <Social
+        type="signup"
+        dividerText="Or connect with"
+        onSuccess={loginUser}
+        onFailure={message => setErrorMessage(message)}
+      />
     </Form>
   );
 };

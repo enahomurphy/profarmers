@@ -1,13 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CompleteProfile from 'modules/Auth/CompleteProfile';
 import Layout from 'components/Layout';
 import withApollo from 'lib/apollo';
 
-const completeSignup = () => (
+const CompleteSignup = ({ url }) => (
   <Layout title="Complete Profile" page="complete-profile">
-    <CompleteProfile />
+    <CompleteProfile {...url.query} />
   </Layout>
 );
 
-export default withApollo(completeSignup);
+CompleteSignup.propTypes = {
+  url: PropTypes.object.isRequired,
+};
+
+export default withApollo(CompleteSignup);

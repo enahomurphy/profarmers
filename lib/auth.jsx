@@ -4,9 +4,12 @@ import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
 import PropTypes from 'prop-types';
 
-export const login = ({ token }, path = '/') => {
+export const login = ({ token }, path = '/', params) => {
   cookie.set('token', token, { expires: 1 });
-  Router.push(path);
+  Router.push({
+    pathname: path,
+    query: params,
+  });
 };
 
 export const auth = (ctx) => {

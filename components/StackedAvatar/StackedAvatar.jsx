@@ -21,8 +21,8 @@ const StackedAvatarImages = styled(Avatar)`
     position: absolute;
     z-index: ${props => props.adjust};
     left: ${(
-    { adjust, avatarWidth, stagedPadding },
-  ) => `${adjust * ((avatarWidth / 2) + stagedPadding)}px`};
+    { adjust, avatarwidth, stagedpadding },
+  ) => `${adjust * ((avatarwidth / 2) + stagedpadding)}px`};
   }
 
   i {
@@ -33,8 +33,8 @@ const StackedAvatarImages = styled(Avatar)`
     height: ${props => props.height};
 
     svg {
-      width: ${props => `${props.avatarWidth / 2}px`};
-      height: ${props => `${props.avatarWidth / 2}px`};
+      width: ${props => `${props.avatarwidth / 2}px`};
+      height: ${props => `${props.avatarwidth / 2}px`};
     }
   }
 `;
@@ -45,26 +45,27 @@ const CountColumn = styled(Col)`
 `;
 
 const StackedAvatar = ({
-  avatars, avatarWidth, stagedPadding, count, width, showCount,
+  avatars, avatarwidth, stagedpadding, count, width, showCount,
 }) => (
   <Row
-    style={{ height: `${avatarWidth}px`, maxWidth: width, width }
+    style={{ height: `${avatarwidth}px`, maxWidth: width, width }
   }
     type="flex"
     justify="end"
   >
-    <StackedAvatarContainer height={avatarWidth} span={showCount ? 16 : 24}>
+    <StackedAvatarContainer height={avatarwidth} span={showCount ? 16 : 24}>
       {
         avatars.map(({ src, alt }, index) => (
           <StackedAvatarImages
+            key={`${alt + index}`}
             adjust={index}
             icon="user"
             src={src}
             alt={alt}
-            avatarWidth={avatarWidth}
-            width={`${avatarWidth}px`}
-            height={`${avatarWidth}px`}
-            stagedPadding={stagedPadding}
+            avatarwidth={avatarwidth}
+            width={`${avatarwidth}px`}
+            height={`${avatarwidth}px`}
+            stagedpadding={stagedpadding}
           />
         ))
       }
@@ -73,7 +74,7 @@ const StackedAvatar = ({
       showCount && (
         <CountColumn
           style={{
-            display: 'flex', justifyContent: 'flex-end', height: avatarWidth,
+            display: 'flex', justifyContent: 'flex-end', height: avatarwidth,
           }}
           span={8}
         >
@@ -91,18 +92,22 @@ const StackedAvatar = ({
   </Row>
 );
 
+StackedAvatar.defaultProps = {
+  count: 0,
+};
+
 StackedAvatar.propTypes = {
   avatars: PropTypes.array.isRequired,
-  avatarWidth: PropTypes.number,
-  stagedPadding: PropTypes.number,
-  count: PropTypes.number.isRequired,
+  avatarwidth: PropTypes.number,
+  stagedpadding: PropTypes.number,
+  count: PropTypes.number,
   width: PropTypes.string,
   showCount: PropTypes.bool,
 };
 
 StackedAvatar.defaultProps = {
-  avatarWidth: 30,
-  stagedPadding: 5,
+  avatarwidth: 30,
+  stagedpadding: 5,
   width: '250px',
   showCount: true,
 };

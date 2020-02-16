@@ -66,7 +66,7 @@ const PreviewList = ({
               <StackedAvatar
                 avatars={getRepliesAvatar(users)}
                 count={replyCount}
-                avatarWidth={40}
+                avatarwidth={40}
                 width="150px"
               />
             </AvatarWrapper>

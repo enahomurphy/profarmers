@@ -1,9 +1,9 @@
 import React from 'react';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Row } from 'antd';
 
 import RoundedIcon from 'components/Icons/RoundedIcon';
+import Link from 'components/Link';
 
 const ProfileMenuWithIcons = ({ menu }) => (
   <Row type="flex" justify="end">

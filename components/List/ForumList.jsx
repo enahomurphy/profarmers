@@ -13,6 +13,7 @@ const StyledList = styled(List.Item)`
 
   &.ant-list-item {
     padding: 10px;
+    border: none;
   }
 
   &:hover {
@@ -22,7 +23,7 @@ const StyledList = styled(List.Item)`
 `;
 
 const ForumList = ({
-  loading, users, title, topicsCount,
+  loading, users, title, topicCount,
 }) => (
   <StyledList>
     <Skeleton avatar title={false} loading={loading} active>
@@ -34,13 +35,13 @@ const ForumList = ({
         </Col>
         <Col style={{ display: 'flex' }}>
           <Typography.Text style={{ marginRight: '10px' }}>
-            {topicsCount}
+            {topicCount}
             {' '}
             Topics
           </Typography.Text>
           <StackedAvatar
             avatars={getAvatars(users)}
-            avatarWidth={23}
+            avatarwidth={23}
             width="150px"
             showCount={false}
           />
@@ -55,7 +56,7 @@ ForumList.propTypes = {
   users: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  topicsCount: PropTypes.number.isRequired,
+  topicCount: PropTypes.number.isRequired,
 };
 
 

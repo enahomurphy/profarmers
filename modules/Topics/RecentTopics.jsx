@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import {
-  List, Spin, Typography,
+  List, Spin, Typography, Row,
 } from 'antd';
 
 import TopicList from 'components/List/PreviewList';
@@ -40,11 +40,23 @@ const RecentTopics = ({
       )
     }
     <InfiniteScroll
-      initialLoad={false}
-      pageStart={0}
-      loadMore={handleInfiniteOnLoad}
-      hasMore={loading && hasMore}
-      useWindow={false}
+      dataLength={topics.length}
+      isReverse
+      next={handleInfiniteOnLoad}
+      refreshFunction={handleInfiniteOnLoad}
+      hasMore={hasMore}
+      useWindow
+      pullDownToRefresh
+      endMessage={(
+        <Typography.Paragraph>
+          <b>Yay! You have seen it all</b>
+        </Typography.Paragraph>
+      )}
+      loader={(
+        <Row type="flex" justify="center">
+          <Spin />
+        </Row>
+      )}
     >
       <List
         dataSource={topics}
@@ -65,6 +77,7 @@ const RecentTopics = ({
     </InfiniteScroll>
   </RecentTopicsSection>
 );
+
 
 export default RecentTopics;
 

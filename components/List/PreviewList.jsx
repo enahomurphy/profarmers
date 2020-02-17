@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 import {
   List, Skeleton, Avatar, Typography, Row,
 } from 'antd';
-import timeAgo from 'lib/utils/timeago';
 
 import StackedAvatar from 'components/StackedAvatar';
 import Divider from 'components/Icons/Divider';
+
+TimeAgo.addLocale(en);
+const timeAgo = new TimeAgo();
 
 const UserInfo = styled(Typography)`
   span {
@@ -60,7 +64,7 @@ const PreviewList = ({
             </Typography.Text>
             <Divider />
             <Typography.Text type="secondary">
-              {timeAgo(lastUpdatedAt)}
+              {timeAgo.format(new Date(lastUpdatedAt))}
             </Typography.Text>
             <AvatarWrapper>
               <StackedAvatar

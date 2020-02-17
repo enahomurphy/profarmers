@@ -17,15 +17,28 @@ const RecentTopicsSection = styled.section`
   ul > div {
     margin-bottom: 25px;
   }
+
+  button {
+    height: 50px;
+    width: 200px;
+    margin-right: 20px;
+  }
 `;
 
 const RecentTopics = ({
-  loading, hasMore, handleInfiniteOnLoad, topics,
+  loading, hasMore, handleInfiniteOnLoad, topics, title, renderHeader,
 }) => (
   <RecentTopicsSection>
-    <Typography.Title style={{ fontSize: '20px', marginBottom: '30px' }}>
-      Recent Discussion
-    </Typography.Title>
+    {renderHeader && (
+      renderHeader
+    )}
+    {
+      title && (
+        <Typography.Title style={{ fontSize: '20px', marginBottom: '30px' }}>
+          {title}
+        </Typography.Title>
+      )
+    }
     <InfiniteScroll
       initialLoad={false}
       pageStart={0}
@@ -55,9 +68,16 @@ const RecentTopics = ({
 
 export default RecentTopics;
 
+RecentTopics.defaultProps = {
+  title: 'Recent Discussion',
+  renderHeader: null,
+};
+
 RecentTopics.propTypes = {
   topics: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   hasMore: PropTypes.bool.isRequired,
   handleInfiniteOnLoad: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  renderHeader: PropTypes.element,
 };

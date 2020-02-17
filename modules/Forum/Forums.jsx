@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -7,6 +8,7 @@ import {
 } from 'antd';
 
 import ForumList from 'components/List/ForumList';
+import Link from 'components/Link';
 
 const ForumSection = styled.section`
   padding: 30px 0;
@@ -61,12 +63,14 @@ const Forums = ({
       <List
         dataSource={forums}
         renderItem={item => (
-          <ForumList
-            key={item.id}
-            {...item}
-            loading={loading}
-            width="100px"
-          />
+          <Link href={`/forum/${item.id}/topics`}>
+            <ForumList
+              key={item.id}
+              {...item}
+              loading={loading}
+              width="100px"
+            />
+          </Link>
         )}
       />
     </InfiniteScroll>

@@ -33,7 +33,7 @@ const StyledRow = styled(Row)`
   }
 `;
 
-const RecentTopics = ({
+const CustomList = ({
   loading, hasNext, handleInfiniteOnLoad, data, title, renderHeader, ListItem, getLink,
 }) => (
   <InfiniteScrollList>
@@ -82,22 +82,21 @@ const RecentTopics = ({
   </InfiniteScrollList>
 );
 
-
-export default RecentTopics;
-
-RecentTopics.defaultProps = {
+CustomList.defaultProps = {
   title: 'Recent Discussion',
   renderHeader: null,
   getLink: () => '',
 };
 
-RecentTopics.propTypes = {
+CustomList.propTypes = {
   data: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
   hasNext: PropTypes.bool.isRequired,
   handleInfiniteOnLoad: PropTypes.func.isRequired,
   title: PropTypes.string,
   renderHeader: PropTypes.element,
-  ListItem: PropTypes.element.isRequired,
+  ListItem: PropTypes.elementType.isRequired,
   getLink: PropTypes.func,
 };
+
+export default CustomList;

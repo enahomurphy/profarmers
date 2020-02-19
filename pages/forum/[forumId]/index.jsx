@@ -39,7 +39,7 @@ const Topics = () => {
   const forum = get(data, 'forum', {});
 
   return (
-    <Layout page="feed" title="feed">
+    <Layout page="feed" title={`Forum - ${forum.title}`}>
       <RecentTopics
         title=""
         topics={recentTopics}

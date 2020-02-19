@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {
-  List, Spin, Typography, Row,
+  List, Spin, Typography, Row, Button,
 } from 'antd';
+
+import Link from 'components/Link';
 
 const InfiniteScrollList = styled.section`
   padding: 30px 0;
@@ -23,8 +25,16 @@ const InfiniteScrollList = styled.section`
   }
 `;
 
+const StyledRow = styled(Row)`
+  margin-bottom: 30px;
+  
+  button {
+    height: 50px;
+  }
+`;
+
 const RecentTopics = ({
-  loading, hasNext, handleInfiniteOnLoad, data, title, renderHeader, ListItem,
+  loading, hasNext, handleInfiniteOnLoad, data, title, renderHeader, ListItem, getLink,
 }) => (
   <InfiniteScrollList>
     {renderHeader && (
@@ -32,9 +42,14 @@ const RecentTopics = ({
     )}
     {
       title && (
-        <Typography.Title style={{ fontSize: '20px', marginBottom: '30px' }}>
-          {title}
-        </Typography.Title>
+        <StyledRow type="flex" justify="space-between" align="middle">
+          <Typography.Title style={{ fontSize: '20px', margin: 0 }}>
+            Recent Discussion
+          </Typography.Title>
+          <Button type="primary">
+            Create New Forum
+          </Button>
+        </StyledRow>
       )
     }
     <InfiniteScroll
@@ -54,11 +69,13 @@ const RecentTopics = ({
       <List
         dataSource={data}
         renderItem={item => (
-          <ListItem
-            {...item}
-            loading={loading}
-            width="100px"
-          />
+          <Link href={getLink(item)}>
+            <ListItem
+              {...item}
+              loading={loading}
+              width="100px"
+            />
+          </Link>
         )}
       />
     </InfiniteScroll>
@@ -71,6 +88,7 @@ export default RecentTopics;
 RecentTopics.defaultProps = {
   title: 'Recent Discussion',
   renderHeader: null,
+  getLink: () => '',
 };
 
 RecentTopics.propTypes = {
@@ -81,4 +99,5 @@ RecentTopics.propTypes = {
   title: PropTypes.string,
   renderHeader: PropTypes.element,
   ListItem: PropTypes.element.isRequired,
+  getLink: PropTypes.func,
 };

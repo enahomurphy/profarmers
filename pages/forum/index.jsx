@@ -1,54 +1,26 @@
-import React, { useEffect } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
+import React from 'react';
 
 import withApollo from 'lib/apollo';
-import forumGQL from 'lib/graphql/forum';
-import get from 'lib/utils/get';
-import Forums from 'modules/Forum/Forums';
+import { query } from 'lib/graphql/forum';
 import Layout from 'components/Layout';
+import List from 'components/Layout/List';
+import ForumList from 'components/List/ForumList';
 
 const Forum = () => {
-  const [loadForums, { loading, data, fetchMore }] = useLazyQuery(forumGQL.query.GET_ALL_FORUM);
-  const result = get(data, 'getAllForums.forums', []);
-  const hasMore = get(data, 'getAllForums.pageInfo.hasNext', true);
-  const nextPage = get(data, 'getAllForums.pageInfo.page', 0);
-
-  const handleInfiniteOnLoad = async () => {
-    if (fetchMore) {
-      fetchMore({
-        variables: {
-          page: nextPage,
-        },
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev;
-          const fetchMoreForums = get(fetchMoreResult, 'getAllForums.forums', []);
-          const prevForums = get(prev, 'getAllForums.forums', []);
-          return Object.assign(
-            {},
-            prev,
-            {
-              getAllForums: {
-                ...fetchMoreResult.getAllForums,
-                forums: [...prevForums, ...fetchMoreForums],
-              },
-            },
-          );
-        },
-      });
-    }
-  };
-
-  useEffect(() => {
-    loadForums();
-  }, [loadForums]);
+  const {
+    loading, data, fetchMore, hasNext,
+  } = query.useGetForums();
 
   return (
     <Layout page="forum" title="forum">
-      <Forums
-        forums={result}
+      <List
+        data={data.forums}
         loading={loading}
-        handleInfiniteOnLoad={handleInfiniteOnLoad}
-        hasMore={hasMore}
+        handleInfiniteOnLoad={fetchMore}
+        hasNext={hasNext}
+        ListItem={ForumList}
+        title="Recent Discussion"
+        getLink={item => `/forum/${item.id}`}
       />
     </Layout>
   );

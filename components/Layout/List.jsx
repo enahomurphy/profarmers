@@ -6,9 +6,7 @@ import {
   List, Spin, Typography, Row,
 } from 'antd';
 
-import ReplyList from 'components/List/ReplyList';
-
-const RepliesSection = styled.section`
+const InfiniteScrollList = styled.section`
   padding: 30px 0;
   height: 240px;
   max-width: 900px;
@@ -26,9 +24,12 @@ const RepliesSection = styled.section`
 `;
 
 const RecentTopics = ({
-  loading, hasMore, handleInfiniteOnLoad, replies, title,
+  loading, hasNext, handleInfiniteOnLoad, data, title, renderHeader, ListItem,
 }) => (
-  <RepliesSection>
+  <InfiniteScrollList>
+    {renderHeader && (
+      renderHeader
+    )}
     {
       title && (
         <Typography.Title style={{ fontSize: '20px', marginBottom: '30px' }}>
@@ -37,18 +38,13 @@ const RecentTopics = ({
       )
     }
     <InfiniteScroll
-      dataLength={replies.length}
+      dataLength={data.length}
       isReverse
       next={handleInfiniteOnLoad}
       refreshFunction={handleInfiniteOnLoad}
-      hasMore={hasMore}
+      hasMore={hasNext}
       useWindow
       pullDownToRefresh
-      endMessage={(
-        <Typography.Paragraph>
-          <b>Yay! You have seen it all</b>
-        </Typography.Paragraph>
-      )}
       loader={(
         <Row type="flex" justify="center">
           <Spin />
@@ -56,23 +52,17 @@ const RecentTopics = ({
       )}
     >
       <List
-        dataSource={replies}
+        dataSource={data}
         renderItem={item => (
-          <ReplyList
+          <ListItem
             {...item}
             loading={loading}
             width="100px"
           />
         )}
-      >
-        {loading && hasMore && (
-          <div className="demo-loading-container">
-            <Spin />
-          </div>
-        )}
-      </List>
+      />
     </InfiniteScroll>
-  </RepliesSection>
+  </InfiniteScrollList>
 );
 
 
@@ -84,10 +74,11 @@ RecentTopics.defaultProps = {
 };
 
 RecentTopics.propTypes = {
-  replies: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  hasMore: PropTypes.bool.isRequired,
+  hasNext: PropTypes.bool.isRequired,
   handleInfiniteOnLoad: PropTypes.func.isRequired,
   title: PropTypes.string,
   renderHeader: PropTypes.element,
+  ListItem: PropTypes.element.isRequired,
 };

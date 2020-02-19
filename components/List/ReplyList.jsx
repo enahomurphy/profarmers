@@ -18,15 +18,15 @@ const UserInfo = styled(Typography)`
 `;
 
 const ReplyList = ({
-  loading, user, title, reply,
+  loading, user, text,
 }) => (
   <List.Item>
     <Skeleton avatar title={false} loading={loading} active>
       <Row>
         <Col>
           <List.Item.Meta
-            avatar={<Avatar src={user.image} />}
-            title={title}
+            avatar={<Avatar src={user.profileImage} />}
+            title={user.fullName}
           />
 
         </Col>
@@ -34,9 +34,9 @@ const ReplyList = ({
           <Row>
             <Col md={18}>
               <Typography>
-                <Typography.Text type="secondary">
-                  {reply}
-                </Typography.Text>
+                <Typography.Paragraph ellipsis={{ rows: 3, expandable: true }}>
+                  {text}
+                </Typography.Paragraph>
               </Typography>
             </Col>
             <Col md={6}>
@@ -66,8 +66,7 @@ const ReplyList = ({
 ReplyList.propTypes = {
   user: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
-  reply: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 };
 
 

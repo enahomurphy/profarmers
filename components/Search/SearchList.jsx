@@ -23,6 +23,12 @@ const ListWrapper = styled.div`
     }
   }
 
+  @media screen and (max-width: 580px) {
+    .ant-list-split .ant-list-item {
+      padding-top: 5px;
+    }
+  }
+
   @media screen and (max-width: 480px) {
     .ant-list-split .ant-list-item {
       padding-top: 5px;

@@ -1,0 +1,17 @@
+.ant-select-show-search, .ant-select-auto-complete, .ant-select, .ant-select-combobox, .ant-select-enabled, .ant-select-allow-clear {
+  width: 100%;
+}
+
+.ant-input:focus, .ant-input:active, .ant-input:hover {
+  outline: none;
+}
+
+li.ant-select-dropdown-menu-item {
+  padding-left: 68px;
+}
+
+@media screen and (max-width: 480px) {
+  li.ant-select-dropdown-menu-item {
+    padding-left: 40px;
+  }
+}

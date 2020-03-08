@@ -72,7 +72,7 @@ const CompleteProfileForm = ({ fullName, profileImage }) => {
               control={control}
               defaultValue={fullName}
               rules={{
-                required: 'Please Enter a valid email',
+                required: 'Please Enter full name',
                 pattern: {
                   value: /^[A-Za-z]{2,}\s+[a-zA-Z]{2,}$/gmi,
                   message: 'Enter your full name and last name ie (john doe)',

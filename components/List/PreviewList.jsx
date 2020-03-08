@@ -66,14 +66,15 @@ const PreviewList = ({
             <Typography.Text type="secondary">
               {timeAgo.format(new Date(lastUpdatedAt))}
             </Typography.Text>
-            <AvatarWrapper>
+            {/** This should be fixed */}
+            {/* <AvatarWrapper>
               <StackedAvatar
                 avatars={getRepliesAvatar(users)}
                 count={replyCount}
                 avatarwidth={40}
                 width="150px"
               />
-            </AvatarWrapper>
+            </AvatarWrapper> */}
           </UserInfo>
         </Row>
       )}

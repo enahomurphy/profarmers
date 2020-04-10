@@ -14,7 +14,7 @@ import useLoginUser from '../hooks/useLogin';
 import Social from '../Social';
 
 const SignupForm = () => {
-  const [signup] = useMutation(authGGL.query.LOGIN);
+  const [login] = useMutation(authGGL.query.LOGIN);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const {
@@ -25,7 +25,7 @@ const SignupForm = () => {
   const onSubmit = async (values) => {
     try {
       setLoading(true);
-      const { data } = await signup({ variables: values });
+      const { data } = await login({ variables: values });
       loginUser(data.login, null, 'login');
     } catch (error) {
       const { message, formErrors } = getErrors(error, 'login');

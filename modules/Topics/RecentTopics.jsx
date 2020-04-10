@@ -9,7 +9,7 @@ import {
 import TopicList from 'components/List/PreviewList';
 
 const RecentTopicsSection = styled.section`
-  padding: 30px 0;
+  padding: ${props => `${props.paddingTopBottom}px`} 0;
   height: 240px;
   max-width: 900px;
   margin: 0px auto;
@@ -26,9 +26,9 @@ const RecentTopicsSection = styled.section`
 `;
 
 const RecentTopics = ({
-  loading, hasMore, handleInfiniteOnLoad, topics, title, renderHeader,
+  loading, hasMore, handleInfiniteOnLoad, topics, title, renderHeader, paddingTopBottom, endMessage, truncateDetails,
 }) => (
-  <RecentTopicsSection>
+  <RecentTopicsSection paddingTopBottom={paddingTopBottom}>
     {renderHeader && (
       renderHeader
     )}
@@ -40,18 +40,14 @@ const RecentTopics = ({
       )
     }
     <InfiniteScroll
-      dataLength={topics.length}
+      dataLength={topics ? topics.length : 0}
       isReverse
       next={handleInfiniteOnLoad}
       refreshFunction={handleInfiniteOnLoad}
       hasMore={hasMore}
       useWindow
       pullDownToRefresh
-      endMessage={(
-        <Typography.Paragraph>
-          <b>Yay! You have seen it all</b>
-        </Typography.Paragraph>
-      )}
+      endMessage={endMessage}
       loader={(
         <Row type="flex" justify="center">
           <Spin />
@@ -64,11 +60,12 @@ const RecentTopics = ({
           <TopicList
             {...item}
             loading={loading}
+            truncateDetails={truncateDetails}
             width="100px"
           />
         )}
       >
-        {loading && hasMore && (
+        {loading && (
           <div className="demo-loading-container">
             <Spin />
           </div>
@@ -84,6 +81,13 @@ export default RecentTopics;
 RecentTopics.defaultProps = {
   title: 'Recent Discussion',
   renderHeader: null,
+  paddingTopBottom: 30,
+  endMessage: (
+    <Typography.Paragraph>
+      <b>Yay! You have seen it all</b>
+    </Typography.Paragraph>
+  ),
+  truncateDetails: false,
 };
 
 RecentTopics.propTypes = {
@@ -93,4 +97,7 @@ RecentTopics.propTypes = {
   handleInfiniteOnLoad: PropTypes.func.isRequired,
   title: PropTypes.string,
   renderHeader: PropTypes.element,
+  paddingTopBottom: PropTypes.number,
+  endMessage: PropTypes.object,
+  truncateDetails: PropTypes.bool,
 };

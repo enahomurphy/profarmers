@@ -53,7 +53,7 @@ const CustomList = ({
       )
     }
     <InfiniteScroll
-      dataLength={data.length}
+      dataLength={data ? data.length : 0}
       isReverse
       next={handleInfiniteOnLoad}
       refreshFunction={handleInfiniteOnLoad}

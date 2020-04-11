@@ -10,6 +10,7 @@ import formatNumber from 'lib/utils/formatNumber';
 const CardContainer = styled(Card)`
     height: 85px;
     display: flex;
+    border: 1px solid #fafafa;
     align-items: center;
     .ant-card-body {
       padding: 0;
@@ -52,9 +53,9 @@ const ConnectedCard = ({
     <CardContainer hoverable>
       <CardMeta
         avatar={
-          <Avatar src={user.image} />
+          <Avatar src={user.profileImage} />
         }
-        title={user.name}
+        title={user.fullName}
         description={(
           <div>
             <Typography.Text

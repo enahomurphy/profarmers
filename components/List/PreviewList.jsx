@@ -47,25 +47,36 @@ const getRepliesAvatar = users => users.map(user => ({
   alt: user.fullName,
 }));
 
+const getTitle = (title, truncateDetails) => (
+  (truncateDetails && title.length > 20) ? title.slice(0, 20).concat('...') : title
+);
+
 const PreviewList = ({
-  loading, user, title, users, lastUpdatedAt, replyCount,
+  loading, user, title, users, lastUpdatedAt, replyCount, truncateDetails,
 }) => (
   <Skeleton avatar title={false} loading={loading} active>
     <ListMeta
       avatar={
         <Avatar src={user.profileImage} />
       }
-      title={title}
+      title={getTitle(title, truncateDetails)}
       description={(
         <Row type="flex" align="middle" justify="space-between">
           <UserInfo style={{ display: 'flex', alignItems: 'center' }}>
-            <Typography.Text type="secondary">
-              {user.fullName}
-            </Typography.Text>
-            <Divider />
-            <Typography.Text type="secondary">
-              {timeAgo.format(new Date(lastUpdatedAt))}
-            </Typography.Text>
+            {
+              !truncateDetails
+              && (
+                <>
+                  <Typography.Text type="secondary">
+                    {user.fullName}
+                  </Typography.Text>
+                  <Divider />
+                  <Typography.Text type="secondary">
+                    {timeAgo.format(new Date(lastUpdatedAt))}
+                  </Typography.Text>
+                </>
+              )
+            }
             <AvatarWrapper>
               <StackedAvatar
                 avatars={getRepliesAvatar(users)}
@@ -81,6 +92,9 @@ const PreviewList = ({
   </Skeleton>
 );
 
+PreviewList.defaultProps = {
+  truncateDetails: false,
+};
 
 PreviewList.propTypes = {
   user: PropTypes.object.isRequired,
@@ -89,6 +103,7 @@ PreviewList.propTypes = {
   title: PropTypes.string.isRequired,
   users: PropTypes.array.isRequired,
   replyCount: PropTypes.number.isRequired,
+  truncateDetails: PropTypes.bool,
 };
 
 export default PreviewList;

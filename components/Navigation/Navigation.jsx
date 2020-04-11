@@ -9,7 +9,7 @@ import RightNav from './RightNav';
 const HeaderContainer = styled(Row)`
   background: #ffffff;
   height: 70px;
-  margin: 0 40px;
+  margin: 0 4px;
 
   @media only screen and (max-width: 576px) {
     margin: 0 0 0 0px;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { useRouter } from 'next/router';
 
 import withApollo from 'lib/apollo';
 import topicGQL from 'lib/graphql/topic'; import get from 'lib/utils/get';
@@ -7,9 +8,12 @@ import topicGQLQuery from 'lib/graphql/topic/topic.query/index';
 import TrendingTopic from 'modules/Topics/TrendingTopic';
 import RecentTopics from 'modules/Topics/RecentTopics';
 import Layout from 'components/Layout';
+import Modal from 'components/Modal';
+import Search from 'components/Search';
 
 const Feed = () => {
   const { data, loading, fetchMore } = useQuery(topicGQL.query.GET_RECENT_AND_TRENDING);
+  const { query } = useRouter();
   const trendingTopics = get(data, 'trendingTopics', []);
   const recentTopics = get(data, 'topics.topics', []);
   const nextPage = get(data, 'topics.pageInfo.page', 0);
@@ -47,6 +51,10 @@ const Feed = () => {
           });
         }}
       />
+      {
+        query.search
+        && <Modal><Search /></Modal>
+      }
     </Layout>
   );
 };

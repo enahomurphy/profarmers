@@ -26,6 +26,11 @@ ProfileNavigation.propTypes = {
 ProfileNavigation.defaultProps = {
   menu: [
     {
+      name: 'search',
+      url: '/feed?search=true',
+      icon: 'search',
+    },
+    {
       name: 'profile',
       url: '/profile',
       icon: 'user',

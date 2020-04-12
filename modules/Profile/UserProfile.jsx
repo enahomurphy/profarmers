@@ -67,7 +67,7 @@ const ConnectedCardWrapper = styled(ConnectedCard)`
 `;
 
 const UserProfile = ({
-  connectionsLoading, topicLoading, userInfo, user, connections, recentTopics,
+  connectionsLoading, topicLoading, userInfo, user, connections, recentTopics, buttonProp,
 }) => (
   <Layout page="profile" title="profile">
     <div style={{ margin: '0 auto' }}>
@@ -76,15 +76,14 @@ const UserProfile = ({
         <Avatar style={{ display: 'block' }} size={100} icon="user" src={user.profileImage} alt={user.fullName} />
         <Button
           style={{
-            width: '120px', height: '40px', borderRadius: 0, marginTop: 30,
+            width: '120px', height: '40px', borderRadius: 0, marginTop: 30, background: buttonProp.background, color: buttonProp.color,
           }}
-          type="primary"
         >
-          Messages
+          {buttonProp.text}
         </Button>
         <div style={{ display: 'flex', margin: '0 auto', marginTop: 30, justifyContent: 'center' }}>
           <h4 style={{ marginRight: 16, marginLeft: 16, fontSize: 26 }}>{user.fullName}</h4>
-          <RoundedIcon type="form" />
+          <RoundedIcon type={buttonProp.text === 'Messages' ? 'form' : 'message'} />
         </div>
       </div>
     </div>
@@ -133,6 +132,14 @@ const UserProfile = ({
   </Layout>
 );
 
+UserProfile.defaultProps = {
+  buttonProp: {
+    color: '#fff',
+    background: '#488B49',
+    text: 'Messages',
+  },
+};
+
 UserProfile.propTypes = {
   topicLoading: PropTypes.bool.isRequired,
   recentTopics: PropTypes.array.isRequired,
@@ -140,6 +147,7 @@ UserProfile.propTypes = {
   user: PropTypes.object.isRequired,
   connections: PropTypes.array.isRequired,
   userInfo: PropTypes.object.isRequired,
+  buttonProp: PropTypes.object,
 };
 
 export default UserProfile;

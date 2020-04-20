@@ -83,7 +83,7 @@ const UserProfile = ({
         </Button>
         <div style={{ display: 'flex', margin: '0 auto', marginTop: 30, justifyContent: 'center' }}>
           <h4 style={{ marginRight: 16, marginLeft: 16, fontSize: 26 }}>{user.fullName}</h4>
-          <RoundedIcon type={buttonProp.text === 'Messages' ? 'form' : 'message'} />
+          <RoundedIcon type={buttonProp.text === 'Messages' ? 'form' : 'mail'} />
         </div>
       </div>
     </div>

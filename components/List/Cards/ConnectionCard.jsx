@@ -51,9 +51,9 @@ const ConnectedCard = ({
     <Card hoverable style={{ width: '160px' }}>
       <CardMeta
         avatar={
-          <Avatar src={user.image} />
+          <Avatar src={user.profileImage} />
         }
-        title={user.name}
+        title={user.fullName}
         description={(
           <div>
             <Typography.Text

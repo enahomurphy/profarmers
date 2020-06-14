@@ -12,6 +12,7 @@ const RecentTopicsSection = styled.section`
   padding: ${props => `${props.paddingTopBottom}px`} 0;
   height: 240px;
   max-width: 900px;
+  width: 100%;
   margin: 0px auto;
 
   ul > div {
@@ -98,6 +99,6 @@ RecentTopics.propTypes = {
   title: PropTypes.string,
   renderHeader: PropTypes.element,
   paddingTopBottom: PropTypes.number,
-  endMessage: PropTypes.object,
+  endMessage: PropTypes.any,
   truncateDetails: PropTypes.bool,
 };

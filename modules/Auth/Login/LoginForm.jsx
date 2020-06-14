@@ -79,6 +79,7 @@ const SignupForm = () => {
         htmlType="submit"
         className="login-form-button"
         loading={loading}
+        onClick={handleSubmit(onSubmit)}
       >
         Login
       </Button>

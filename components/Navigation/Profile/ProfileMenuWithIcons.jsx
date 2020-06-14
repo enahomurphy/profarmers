@@ -10,9 +10,7 @@ const ProfileMenuWithIcons = ({ menu }) => (
     {
       menu.map(({ name, url, icon }) => (
         <Link href={url} key={name}>
-          <a>
-            <RoundedIcon type={icon} />
-          </a>
+          <RoundedIcon type={icon} />
         </Link>
       ))
     }

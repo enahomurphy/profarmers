@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { AutoComplete, Icon, Input } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { AutoComplete, Input } from 'antd';
 import styled from 'styled-components';
 import SearchTabs from './SearchTabs';
 
@@ -82,7 +83,7 @@ const Complete = () => {
         return (
           <Option key={res.value} label={res.value}>
             {res.value}
-            <Icon type="search" style={{ marginLeft: 10, color: 'green', fontSize: 12 }} />
+            <SearchOutlined style={{ marginLeft: 10, color: 'green', fontSize: 12 }} />
           </Option>
         );
       }
@@ -113,7 +114,10 @@ const Complete = () => {
         value={currentValue}
         optionLabelProp="label"
       >
-        <Input style={{ height: 50.5 }} prefix={<Icon type="search" className="certain-category-icon" />} />
+        <Input
+          style={{ height: 50.5 }}
+          prefix={<SearchOutlined className="certain-category-icon" />
+      } />
       </AutoWrapper>
       { tabData.length ? <SearchTabs data={tabData} /> : '' }
     </div>

@@ -28,7 +28,7 @@ const ForumList = ({
   <StyledList>
     <Skeleton avatar title={false} loading={loading} active>
       <Row>
-        <Col>
+        <Col style={{ width: '100%' }}>
           <Typography.Title style={{ fontSize: '16px' }}>
             {title}
           </Typography.Title>

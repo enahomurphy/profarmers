@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {
   Avatar, Row, Col, Typography,
 } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 import formatNumber from 'lib/utils/formatNumber';
 
@@ -59,7 +60,7 @@ const StackedAvatar = ({
           <StackedAvatarImages
             key={`${alt + index}`}
             adjust={index}
-            icon="user"
+            icon={<UserOutlined />}
             src={src}
             alt={alt}
             avatarwidth={avatarwidth}

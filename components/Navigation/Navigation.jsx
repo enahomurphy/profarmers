@@ -10,6 +10,7 @@ const HeaderContainer = styled(Row)`
   background: #ffffff;
   height: 70px;
   margin: 0 4px;
+  width: 100%;
 
   @media only screen and (max-width: 576px) {
     margin: 0 0 0 0px;

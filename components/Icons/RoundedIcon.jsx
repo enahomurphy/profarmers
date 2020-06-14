@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Icon } from 'antd';
+import Icon from '@ant-design/icons';
 import color from 'globals/color';
 
 const IconContainer = styled.div`
@@ -29,10 +29,11 @@ const RoundedIcon = ({
 }) => (
   <IconContainer>
     <Icon
+      component={type}
       style={{ fontSize: '20px', color: color.primaryColor, ...style }}
-      type={type}
       height={height}
       width={width}
+      theme="outlined"
     />
   </IconContainer>
 );
@@ -41,7 +42,7 @@ RoundedIcon.propTypes = {
   height: PropTypes.string,
   width: PropTypes.string,
   style: PropTypes.object,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.any.isRequired,
 };
 
 RoundedIcon.defaultProps = {

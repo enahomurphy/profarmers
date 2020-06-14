@@ -1,7 +1,10 @@
 import React from 'react';
 import {
-  Avatar, Button, Icon,
+  Avatar, Button,
 } from 'antd';
+import {
+  ArrowLeftOutlined, FormOutlined, MailOutlined, UserOutlined,
+} from '@ant-design/icons';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -13,7 +16,7 @@ import ConnectedCard from 'components/List/Cards/ConnectedCard';
 const InfoWrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: 30%;
+  width: 100%;
   text-align: center;
   margin: auto;
   margin-top: 40px;
@@ -40,6 +43,8 @@ const InfoWrapper = styled.div`
 const ConnectionsAndTopicsWrapper = styled.div`
   margin-top: 40px;
   display: flex;
+  width: 100%;
+  padding: 0 76px;
 
   section {
     font-weight: 500;
@@ -70,65 +75,67 @@ const UserProfile = ({
   connectionsLoading, topicLoading, userInfo, user, connections, recentTopics, buttonProp,
 }) => (
   <Layout page="profile" title="profile">
-    <div style={{ margin: '0 auto' }}>
-      <Icon style={{ marginLeft: 100 }} type="arrow-left" />
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-        <Avatar style={{ display: 'block' }} size={100} icon="user" src={user.profileImage} alt={user.fullName} />
-        <Button
-          style={{
-            width: '120px', height: '40px', borderRadius: 0, marginTop: 30, background: buttonProp.background, color: buttonProp.color,
-          }}
-        >
-          {buttonProp.text}
-        </Button>
-        <div style={{ display: 'flex', margin: '0 auto', marginTop: 30, justifyContent: 'center' }}>
-          <h4 style={{ marginRight: 16, marginLeft: 16, fontSize: 26 }}>{user.fullName}</h4>
-          <RoundedIcon type={buttonProp.text === 'Messages' ? 'form' : 'mail'} />
+    <>
+      <div style={{ margin: '0 auto', width: '100%' }}>
+        <ArrowLeftOutlined style={{ marginLeft: 100 }} />
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <Avatar style={{ display: 'block' }} size={100} icon={<UserOutlined />} src={user.profileImage} alt={user.fullName} />
+          <Button
+            style={{
+              width: '120px', height: '40px', borderRadius: 0, marginTop: 30, background: buttonProp.background, color: buttonProp.color,
+            }}
+          >
+            {buttonProp.text}
+          </Button>
+          <div style={{ display: 'flex', margin: '0 auto', marginTop: 30, justifyContent: 'center' }}>
+            <h4 style={{ marginRight: 16, marginLeft: 16, fontSize: 26 }}>{user.fullName}</h4>
+            <RoundedIcon type={buttonProp.text === 'Messages' ? FormOutlined : MailOutlined} />
+          </div>
         </div>
       </div>
-    </div>
-    <p style={{
-      textAlign: 'center', margin: 'auto 60px', fontSize: 18, lineHeight: '30px', color: '#686666',
-    }}
-    >
-      {user.bio}
-    </p>
-    <InfoWrapper>
-      <span id="topic">
-        <div className="count">{userInfo.topicsCount}</div>
-        <div className="text">Topics</div>
-      </span>
-      <span id="discussions">
-        <div className="count">{userInfo.disscussionCount}</div>
-        <div className="text">Discussions</div>
-      </span>
-      <span id="connections">
-        <div className="count">{userInfo.connectionCount}</div>
-        <div className="text">Connections</div>
-      </span>
-    </InfoWrapper>
-    <ConnectionsAndTopicsWrapper>
-      <section>
-        <header style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <h4>Connections</h4>
-          <h5>See All</h5>
-        </header>
-        {
-          !connectionsLoading
-          && connections.map(conn => <div style={{ marginBottom: 16 }}><ConnectedCardWrapper user={conn} replies={{ totalCount: 300 }} loading={connectionsLoading} /></div>)
-        }
-      </section>
-      <RecentTopics
-        title="Recent Topics"
-        topics={recentTopics}
-        loading={topicLoading}
-        hasMore={false}
-        endMessage=""
-        handleInfiniteOnLoad={() => {}}
-        paddingTopBottom={0}
-        truncateDetails
-      />
-    </ConnectionsAndTopicsWrapper>
+      <p style={{
+        textAlign: 'center', margin: 'auto 60px', fontSize: 18, lineHeight: '30px', color: '#686666', width: '100%',
+      }}
+      >
+        {user.bio}
+      </p>
+      <InfoWrapper>
+        <span id="topic">
+          <div className="count">{userInfo.topicsCount}</div>
+          <div className="text">Topics</div>
+        </span>
+        <span id="discussions">
+          <div className="count">{userInfo.disscussionCount}</div>
+          <div className="text">Discussions</div>
+        </span>
+        <span id="connections">
+          <div className="count">{userInfo.connectionCount}</div>
+          <div className="text">Connections</div>
+        </span>
+      </InfoWrapper>
+      <ConnectionsAndTopicsWrapper>
+        <section>
+          <header style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <h4>Connections</h4>
+            <h5>See All</h5>
+          </header>
+          {
+            !connectionsLoading
+            && connections.map(conn => <div style={{ marginBottom: 16 }}><ConnectedCardWrapper user={conn} replies={{ totalCount: 300 }} loading={connectionsLoading} /></div>)
+          }
+        </section>
+        <RecentTopics
+          title="Recent Topics"
+          topics={recentTopics}
+          loading={topicLoading}
+          hasMore={false}
+          endMessage=""
+          handleInfiniteOnLoad={() => {}}
+          paddingTopBottom={0}
+          truncateDetails
+        />
+      </ConnectionsAndTopicsWrapper>
+    </>
   </Layout>
 );
 

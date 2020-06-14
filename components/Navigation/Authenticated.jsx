@@ -34,7 +34,7 @@ const Authenticated = ({ menu }) => {
           menu.map(({ name, url }) => (
             <Menu.Item key={name}>
               <Link href={url}>
-                <span>{name}</span>
+                <a>{name}</a>
               </Link>
             </Menu.Item>
           ))

@@ -15,7 +15,7 @@ const ConnectionsAndTopicsWrapper = styled.div`
   margin-top: 40px;
   display: flex;
   justify-content: space-between;
-  width: 70%;
+  width: 75%;
 
   section {
     font-weight: 500;
@@ -68,8 +68,8 @@ const Community = () => {
 
   return (
     <Layout page="community" title="community">
-      <h1 style={{ display: 'flex', justifyContent: 'center' }}>Community</h1>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <h1 style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>Community</h1>
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <ConnectionsAndTopicsWrapper>
           <section>
             <header style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -78,7 +78,7 @@ const Community = () => {
             </header>
             <div>
               {
-                suggestions.length
+                !!suggestions.length
                 && suggestions.map(conn => (
                   <div style={{ marginBottom: 16 }}>
                     <ConnectionCard

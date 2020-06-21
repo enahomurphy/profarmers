@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
+import { MailOutlined, SettingOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 
 import AvatarDropDown from './AvatarDropDown';
 import ProfileMenuWithIcons from './ProfileMenuWithIcons';
@@ -28,22 +29,22 @@ ProfileNavigation.defaultProps = {
     {
       name: 'search',
       url: '/feed?search=true',
-      icon: 'search',
+      icon: SearchOutlined,
     },
     {
       name: 'profile',
       url: '/profile',
-      icon: 'user',
+      icon: UserOutlined,
     },
     {
       name: 'messages',
       url: '/messages',
-      icon: 'mail',
+      icon: MailOutlined,
     },
     {
       name: 'settings',
-      url: '/forum',
-      icon: 'setting',
+      url: '/settings',
+      icon: SettingOutlined,
     },
   ],
 };

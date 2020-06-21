@@ -5,8 +5,9 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import { GoogleLogin } from 'react-google-login';
 import { useMutation } from '@apollo/react-hooks';
 import {
-  Icon, Button, Row, Col, Divider, Typography,
+  Button, Row, Col, Divider, Typography,
 } from 'antd';
+import { FacebookOutlined, GoogleOutlined } from '@ant-design/icons';
 
 import authGGL from 'lib/graphql/auth';
 
@@ -22,10 +23,6 @@ const SocialButtons = styled(Button)`
   }
 `;
 
-const SocialIcon = styled(Icon)`
-  font-size: 25px;
-  color: ${props => props.color};
-`;
 
 const StyledCol = styled(Col)`
   display: flex;
@@ -64,7 +61,7 @@ const SocialAuth = ({
   };
 
   return (
-    <Row justify="space-around">
+    <Row justify="space-around" style={{ marginTop: 5 }}>
       <Col>
         <Divider>
           <Typography.Paragraph style={{ margin: '0px' }}>
@@ -80,7 +77,7 @@ const SocialAuth = ({
           callback={data => handleLogin(data, 'facebook')}
           render={renderProps => (
             <SocialButtons hovercolor="#3b5998" disabled={renderProps.disabled} onClick={renderProps.onClick}>
-              <SocialIcon color="blue" type="facebook" theme="filled" />
+              <FacebookOutlined style={{ color: 'blue', fontSize: 25 }} type="facebook" theme="filled" />
             </SocialButtons>
           )}
         />
@@ -92,7 +89,7 @@ const SocialAuth = ({
           cookiePolicy="single_host_origin"
           render={renderProps => (
             <SocialButtons hovercolor="#de5246" disabled={renderProps.disabled} onClick={renderProps.onClick}>
-              <SocialIcon color="red" type="google-circle" theme="filled" />
+              <GoogleOutlined style={{ color: 'red', fontSize: 25 }} type="google-circle" theme="filled" />
             </SocialButtons>
           )}
         />

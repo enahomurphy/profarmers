@@ -3,9 +3,10 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {
-  Avatar, Badge, Icon, Menu,
+  Avatar, Badge, Menu,
 } from 'antd';
 import Dropdown from 'antd/lib/dropdown';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 const AvatarContainer = styled.div`
   display: flex;
@@ -35,9 +36,9 @@ const AvatarDropDown = ({ menu }) => (
   <Dropdown overlay={<ProfileMenu menu={menu} />}>
     <AvatarContainer>
       <Badge count={1}>
-        <Avatar size={30} shape="circle" icon="user" />
+        <Avatar size={30} shape="circle" icon={<UserOutlined />} />
       </Badge>
-      <Icon style={{ fontSize: '20px', marginLeft: '5px' }} type="down" />
+      <DownOutlined style={{ fontSize: '20px', marginLeft: '5px' }} />
     </AvatarContainer>
   </Dropdown>
 );

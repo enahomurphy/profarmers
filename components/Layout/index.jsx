@@ -9,7 +9,7 @@ import Meta from './meta';
 const StyledBody = styled(Row)`
   max-width: 1200px;
   width: 100%;
-  margin: 0px  auto;
+  margin: 0px auto;
 `;
 
 const Layout = ({ children, title, page }) => (

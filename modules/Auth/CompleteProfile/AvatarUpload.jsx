@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, Icon, message } from 'antd';
+import { Upload, message } from 'antd';
+import { LoadingOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -66,8 +67,8 @@ const AvatarUpload = ({ defaultImage, onChange }) => {
 
   const UploadButton = (
     <UploadButtonContainer>
-      {loading && <Icon type="loading" />}
-      <Icon
+      { loading && <LoadingOutlined /> }
+      <PlusCircleOutlined
         style={{
           fontSize: '26px',
           position: 'absolute',
@@ -75,7 +76,6 @@ const AvatarUpload = ({ defaultImage, onChange }) => {
           right: '-10px',
         }}
         theme="filled"
-        type="plus-circle"
       />
     </UploadButtonContainer>
   );

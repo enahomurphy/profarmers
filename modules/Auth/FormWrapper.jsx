@@ -21,6 +21,7 @@ const SignupContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 100px;
+  width: 100%;
 
   @media only screen and (max-width: 576px) {
     margin-top: 50px;

@@ -15,6 +15,7 @@ const TrendingTopicSection = styled.section`
   margin: 30px 0;
   height: 240px;
   margin: 40px auto;
+  width: 100%;
 
   .swiper-container {
     padding: 20px 0px;

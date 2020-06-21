@@ -13,6 +13,7 @@ const InfiniteScrollList = styled.section`
   height: 240px;
   max-width: 900px;
   margin: 0px auto;
+  width: 100%;
 
   ul > div {
     margin-bottom: 25px;
@@ -46,9 +47,11 @@ const CustomList = ({
           <Typography.Title style={{ fontSize: '20px', margin: 0 }}>
             Recent Discussion
           </Typography.Title>
-          <Button type="primary">
-            Create New Forum
-          </Button>
+          <Link href="/forum/new">
+            <Button type="primary">
+              Create New Forum
+            </Button>
+          </Link>
         </StyledRow>
       )
     }

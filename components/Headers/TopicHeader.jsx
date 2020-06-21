@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Row, Col, Icon, Typography, Avatar,
+  Row, Col, Typography, Avatar,
 } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 const StyledWrapper = styled(Row)`
@@ -38,7 +39,7 @@ const StyledRow = styled(Row)`
 const TopicHeader = ({ user, topic }) => (
   <StyledWrapper>
     <Col>
-      <Icon name="back" />
+      <ArrowLeftOutlined />
     </Col>
     <StyledRow type="flex" align="middle">
       <Typography>

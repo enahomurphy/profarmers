@@ -21,40 +21,42 @@ const Feed = () => {
 
   return (
     <Layout page="feed" title="feed">
-      <TrendingTopic
-        topics={trendingTopics}
-        loading={loading}
-      />
-      <RecentTopics
-        topics={recentTopics}
-        loading={loading}
-        hasMore={hasMore}
-        handleInfiniteOnLoad={() => {
-          fetchMore({
-            query: topicGQLQuery.GET_RECENT_QUERY,
-            variables: { page: nextPage },
-            updateQuery(prev, { fetchMoreResult }) {
-              if (!fetchMoreResult) return prev;
-              const fetchMoreTopics = get(fetchMoreResult, 'topics.topics', []);
-              const prevForumsTopics = get(prev, 'topics.topics', []);
-              return Object.assign(
-                {},
-                prev,
-                {
-                  recentTopics: {
-                    ...fetchMoreResult.recentTopics,
-                    topics: [...prevForumsTopics, ...fetchMoreTopics],
+      <>
+        <TrendingTopic
+          topics={trendingTopics}
+          loading={loading}
+        />
+        <RecentTopics
+          topics={recentTopics}
+          loading={loading}
+          hasMore={hasMore}
+          handleInfiniteOnLoad={() => {
+            fetchMore({
+              query: topicGQLQuery.GET_RECENT_QUERY,
+              variables: { page: nextPage },
+              updateQuery(prev, { fetchMoreResult }) {
+                if (!fetchMoreResult) return prev;
+                const fetchMoreTopics = get(fetchMoreResult, 'topics.topics', []);
+                const prevForumsTopics = get(prev, 'topics.topics', []);
+                return Object.assign(
+                  {},
+                  prev,
+                  {
+                    recentTopics: {
+                      ...fetchMoreResult.recentTopics,
+                      topics: [...prevForumsTopics, ...fetchMoreTopics],
+                    },
                   },
-                },
-              );
-            },
-          });
-        }}
-      />
-      {
-        query.search
-        && <Modal><Search /></Modal>
-      }
+                );
+              },
+            });
+          }}
+        />
+        {
+          query.search
+          && <Modal><Search /></Modal>
+        }
+      </>
     </Layout>
   );
 };
